@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block body %}
+
+{% if user.is_authenticated %}
+<div class="modal modal-sheet position-static d-block bg-body-secondary p-4 py-md-5 my-5" tabindex="-1" role="dialog"
+    id="modalTour">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-body p-5">
+                <h2 class="fw-bold mb-0">Welcome {{request.user}}</h2>
+                <a type="button" href="/logout/" class="btn btn-lg btn-primary mt-5 w-100">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="container my-5">
+    <div class="modal modal-sheet position-static d-block bg-body-secondary p-4 py-md-5" tabindex="-1" role="dialog"
+        id="modalSheet">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content rounded-4 shadow">
+                <div class="modal-header border-bottom-0">
+                    <h1 class="modal-title fs-5">Modal title</h1>
+                </div>
+                <div class="modal-body py-0">
+                    <p>This is a modal sheet, a variation of the modal that docs itself to the bottom of the viewport
+                        like the newer share sheets in iOS.</p>
+                </div>
+                <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+                    <!-- Login trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+                        Login
+                    </button>
+
+                    <!-- Signup trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupModal">
+                        Signup
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="loginModalLabel">Login here</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/login/" method="post"> {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="loginUsername" class="form-label">Username</label>
+                        <input type="text" class="form-control" name="loginUsername" id="loginUsername" required>
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Signup Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="signupModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/signup/" method="post"> {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="fName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="fName" name="fName" placeholder="First Name"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lName" name="lName" placeholder="Last Name"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signupUsername" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="signupUsername" name="signupUsername"
+                            placeholder="Choose your username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="pass1" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="pass1" name="pass1"
+                            placeholder="Choose your password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="pass2" class="form-label"> Confirm Password</label>
+                        <input type="password" class="form-control" id="pass2" name="pass2"
+                            placeholder="Confirm your password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Signup</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}
